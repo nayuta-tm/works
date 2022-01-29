@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>漢文テクニカル</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div id="ref">
+            <input type="file" id="file">
+            <a href="about.html"><p>使い方</p></a>
+        </div>
+        <h1>漢文テクニカルクイズ</h1>
+        <div class="window_wrapper">
+            <div id="questionFrame" class="questionFrame">問題:
+                <div class="question" id="showQuestion"></div>
+            </div>
+            <div id="answerFrame" class="answerFrame">答:
+                <div class="answer" id="showAnswer"></div>
+            </div>
+            <div class="btnWrapper">
+                <div class ="operateQ">
+                    <input type="button" id="anotherQ" value="次の問題">
+                    <input type="button" id="start" class="button" value="出題">
+                </div>
+                <input type="button" id="stop" class="stop" value="!">
+                <input type="button" id="check" class="check" value="答えを見る">
+            </div>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
