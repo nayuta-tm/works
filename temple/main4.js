@@ -43,7 +43,7 @@ $(function(){
     ];
     const COLOURS = ["#f55", "#55f", "#5c5", "#fa5", "#0bf", "#f6b"];
 
-    const knock = new Audio("knock.mp3");
+    const knock = new Audio("./knock.mp3");
 
     let tokenPos = [];  //所持トークン数
     let score = [];     //Scoreクラスで作ったインスタンスを格納
