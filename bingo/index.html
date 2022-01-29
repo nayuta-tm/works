@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>ビンゴ</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./rotate3.js"></script>
+    </head>
+
+    <body>
+        <div id="contents">
+            <div class="wrapper">  
+                <div class="picture">
+                    <img src="./kaitenbu.png" id="rotor">
+                    <img src="./shichu.png" id="support"> 
+                    <img src="./ball.png" id="ball">
+                </div>
+                <div class="wrapper-button">
+                    <button id="start" class="start">抽選</button>
+                    <button id="show_result" class="show_result">結果を見る</button>
+                </div>
+                <div id="result" class="result"></div>
+            </div>
+            <div class="numbers">
+                <ul id="number" class="number"></ul>
+            </div>
+        </div>
+    </body>
+</html>
