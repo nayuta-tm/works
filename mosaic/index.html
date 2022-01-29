@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/image/favicon.ico">
+    <title>問題一覧</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/extras/jquery.metadata.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/css/theme.dropbox.min.css">
+    <style type="text/css">
+        body{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .left{
+            width: 60%;
+        }
+
+        .side{
+            position: fixed;
+            margin-left: 60%;
+            top: 20vh;
+        }
+
+        div#main-visual-outer{
+            height: 150px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        div#main-visual2{
+            width: 150px;
+            overflow: hidden;
+            line-height: 0;
+            font-size: 0;
+        }
+
+        #myTable{
+            margin: auto;
+            width: 350px;
+        }
+
+        #myTable .tablesorter-header {
+            cursor: pointer;
+            outline: none;
+        }
+
+        #myTable .tablesorter-header-inner::after { 
+            content: '▼';
+            font-size: 12px;
+            margin-left: 5px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="left">
+        <table class="tablesorter-dropbox" id="myTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th class="{sorter: 'metadata'}">ジャンル</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td class="{sortValue: 2}">
+                        <a href="/photo1.html">写真1</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="{sortValue: 2}">
+                        <a href="/photo2.html">写真2</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="{sortValue: 1}">
+                        <a href="/art1.html">絵画1</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+       $(document).ready(function() { 
+           $("#myTable").tablesorter();
+       }); 
+    </script>
+</body>
+</html>
