@@ -170,7 +170,7 @@ li{
 .jinjawindow{
     height: 235px;
     width: 256px;
-    background-image: url("jinja.png");
+    background-image: url("./jinja.png");
     background-size: cover;
 }
 
@@ -306,7 +306,7 @@ li{
 }
 
 .ofuda{
-    background-image: url("ofuda.png");
+    background-image: url("./ofuda.png");
     width: 45px;
     height: 45px;
     background-size: cover;
@@ -376,7 +376,7 @@ li{
 
 .selected::after{
     content: '';
-    background-image: url(juzu.png);
+    background-image: url("./juzu.png");
     background-size: cover;
     position: absolute;
     width: 40px;
@@ -386,7 +386,7 @@ li{
 
 .cursed::after{
     content: '';
-    background-image: url(wara.png);
+    background-image: url("./wara.png");
     background-size: cover;
     position: absolute;
     width: 40px;
@@ -396,7 +396,7 @@ li{
 
 .absent::after{
     content: '';
-    background-image: url(batsu.png);
+    background-image: url("./batsu.png");
     background-size: cover;
     position: absolute;
     width: 70px;
