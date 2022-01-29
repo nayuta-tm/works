@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>漢文テクニカルの使い方</title>
+</head>
+<body>
+    <p><a href="./">戻る</a></p>
+    <h3>STEP1. 自分で問題を用意する</h3>
+    <ul>
+    <li>Excelなどのスプレッドシートを用意してください</li>
+    <li>1行目の1列目に問題、1行目の2列目に答えと記入してください&ensp;(これがヘッダーになります)</li>
+    <li>2行目以降は、1列目に問題文を、2列目に答えを記入していってください</li>
+    <li>ファイルをcsv形式としてエクスポートし、保存してください<br>&ensp;(用意したファイルはデスクトップなどわかりやすい場所に保管してください)</li>
+    </ul>
+    <p style="color: red; font-weight: 600;">&ensp;&ensp;&ensp;注:文字化け防止のためにUTF-8の形式で保存してください</p>
+    <u>スプレッドシートへの記入例</u>
+    <table border="1" style="margin-top: 1.2em; border-collapse: collapse;">
+        <tr>
+            <td>問題</td>
+            <td>答え</td>
+        </tr>
+        <tr>
+            <td>1問目の問題文です</td>
+            <td>答え1</td>
+        </tr>
+        <tr>
+            <td>2問目の問題文です</td>
+            <td>答え2</td>
+        </tr>
+    </table>
+    <h3>STEP2. 用意した問題を読み込む</h3>
+        <ul>
+            <li>出題画面上部の「ファイルを選択」ボタンを押してください</li>
+            <li>先ほど作成したCSVファイルを選び、ファイルを開いてください</li>
+            <li>うまく読み込まれると画面上部に選択したファイル名が表示されます</li>
+        </ul>
+    <h3>STEP3. 出題する</h3>
+        <ul>
+            <li>ファイルが選択された状態で画面下部の「次の問題」を押してください</li>
+            <li>隣の「出題」ボタンを押すと問題文中の漢字だけが抜き出された文章が出題されます</li>
+            <li>問題を途中で止めたい場合は下部中央の「!」が描かれたボタンを押してください</li>
+            <li>答えを確認する際には画面右下の「答えを見る」ボタンを押してください</li>
+            <li>次の問題を出題する場合、先ほどと同様に、「次の問題」ボタン→「出題」ボタンの順に押してください</li>
+        </ul>
+        <p style="color: red; font-weight: 600;">問題のストックがなくなった時にはアラートが出ます</p>
+</body>
+</html>
