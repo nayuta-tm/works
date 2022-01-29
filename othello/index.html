@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>オセロのページ</title>
+    <script src="./static/js/jquery-3.5.1.min.js" charset="utf-8"></script>
+    <script src="./static/js/Chart.js"></script>
+    <script src="./static/js/othello.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">	<style>
+		body{
+		 font-size: 22px;
+		}
+		.startbtn{
+			font-size: 0.8em;
+			position: absolute;
+			width: 40%; 
+			height: 15%;  
+			display: none;
+		}
+		.cpubtn{
+			font-size: 0.5em;
+			position: absolute;
+			margin: 0px;
+			
+		}
+		.w-right{
+			position: absolute;
+			left: 620px;
+			top: 20px;
+			width: 600px;
+			height: 600px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		#value-viewer{
+			height: 270px;
+		}
+		#indicator, #level-viewer{
+			font-size: 30px;
+		}
+		ul{
+			list-style-type: none;
+		}
+		p{
+			font-size: 0.5em;
+		}
+	</style>
+  </head>
+  <body>
+	<script>
+		let ww = window.innerWidth;
+	</script>
+	<div class="w3-display-container w3-mobile" id="rootbox" style="max-width: 600px; width: 100%;">
+		
+		<canvas id="cnvs" width=600 height=600 class="w3-opacity"></canvas>
+		<div class="w3-center" id="levelbox" style="top: 0px; left: 0px; width: 600px; height: 600px; position: absolute;">
+			<div>
+				<button class="w3-btn w3-light-grey startbtn" id="vsCPU-b1" style="top: 15%; left: 8%;">黒で対戦(CPU LV.1)</button>
+				<button class="w3-btn w3-light-grey startbtn" id="vsCPU-w1"  style="top: 15%; left: 56%;">白で対戦(CPU LV.1)</button>
+				<button class="w3-btn w3-light-grey startbtn" id="vsCPU-b2" style="top: 40%; left: 8%;">黒で対戦(CPU LV.2)</button>
+				<button class="w3-btn w3-light-grey startbtn" id="vsCPU-w2"  style="top: 40%; left: 56%;">白で対戦(CPU LV.2)</button>
+				<button class="w3-btn w3-light-grey startbtn" id="vsCPU-b3" style="top: 65%; left: 8%;">黒で対戦(CPU LV.3)</button>
+				<button class="w3-btn w3-light-grey startbtn" id="vsCPU-w3"  style="top: 65%; left: 56%;">白で対戦(CPU LV.3)</button>
+			</div>
+				
+			<div class="w3-panel w3-indigo simulation" style="display: none;">
+				<label class="w3-xlarge w3-margin" id="label_sim"></label>
+				<button class="w3-btn w3-light-grey w3-margin" id="again">もう一度</button>
+			</div>
+		</div>
+		<div class="w3-center">
+			<span id="indicator">黒2-白2</span><br>
+			<span id="level-viewer" style="color: blue;"></span>
+		</div>
+		
+	</div>
+	<div class="w-right">
+		<div id="value-viewer">----</div>
+		<div class="w3-container w3-mobile" id="myChartContainer" style="max-width: 600px; width: 100%; height: 450px;">
+			<canvas id="myChart" width="450" height="300"></canvas>
+		</div>
+	</div>
+	
+	
+	<script>
+	window.chartColors = {
+		red: 'rgb(255, 99, 132)',
+		orange: 'rgb(255, 159, 64)',
+		yellow: 'rgb(255, 205, 86)',
+		green: 'rgb(75, 192, 192)',
+		blue: 'rgb(54, 162, 235)',
+		purple: 'rgb(153, 102, 255)',
+		grey: 'rgb(201, 203, 207)'
+	};
+
+	let ntesuu = [];
+	for(let i=0; i<100; i++) ntesuu[i] = i + 1;
+	let myChart = new Chart("myChart", {
+			type: "line",
+			data: {
+				labels: ntesuu,
+				datasets: [{"label": "CPU", data: [0]}],
+			},
+			options: {
+			responsive: true,
+			title: {
+				display: true,
+				text: '評価値（+が大きいと黒が良い）'
+			},
+			animation: {
+				duration: 0
+			},
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			},
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					ticks: {min: 0, max: 65},
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: '手数'
+					}
+				}],
+				yAxes: [{
+					ticks: {min: -4000, max: 4000},
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: '評価値'
+					}
+				}]
+			}
+		}
+		});
+</script>	
+	<div class="w3-center">
+		<button class="w3-btn w3-large w3-light-grey w3-margin" id="back" style="display:none;">メニューに戻る</button>
+	</div>
+  </body>
+</html>
