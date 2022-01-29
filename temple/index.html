@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お願い神社</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <div class="window">
+        <div class="mainwindow">
+            <div class="header">
+                <div class="teams">
+                    <div class="conf_wrapper">
+                        <div class="conf-win">
+                            <div class="confwinbutton">
+                                <button class="teamcounter" id="teamup">▲</button>
+                                <button class="teamcounter" id="teamdown">▼</button>
+                            </div>
+                            <div class="letbox">
+                                <span id="team_n">4</span>組
+                            </div>
+                        </div>
+                        <button id="g_start">参拝</button>
+                    </div>
+                </div>
+                <div class="q_indicator">
+                    <span id="q_count">0</span>問消化
+                </div>
+            </div>
+            <div class="firstrow">
+                <div class="jinjaviewer">
+                    <div class="jinja jinjakind">
+                        <div class="jinjaname">普通の神社</div>
+                        <div class="jinjaname">賭博の神社</div>
+                        <div class="jinjaname">呪いの神社</div>
+                    </div>
+                    <div class="jinja jinjaframe">
+                        <div class="jinjawindow" id="jinja1"></div>
+                        <div class="jinjawindow" id="jinja2"></div>
+                        <div class="jinjawindow" id="jinja3"></div>
+                    </div>
+                    <div class="jinja jinjaconfig">
+                        <div class="pray">
+                            <button class="praybutton" id="normal">願</button>
+                        </div>
+                        <div class="pray">
+                            <button class="praybutton" id="gambling">祈</button>
+                        </div>
+                        <div class="pray">
+                            <button class="praybutton" id="curse">呪</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="resultwindow">
+                    <div id="resulttitle">神託</div>
+                    <div id="resultviewer"></div>
+                    <div id="resultbttoncontainer">
+                        <button class="praybutton" id="next">帰</button>
+                    </div>
+                </div>
+            </div>
+            <div class="secondrow">
+                <div id="token"></div>
+                <div id="amount"></div>
+                <div id="score"></div>
+                <div id="current_p"></div>
+                <div id="btnconfig">
+                    <div id="btnwrapper">
+                        <button class="config" id="correct">正解</button>
+                        <button class="config" id="wrong">誤答</button>
+                        
+                    </div>
+                    <button class="config" id="thru">次</button>
+                </div>
+            </div>
+        </div>
+        <div class="subwindow">
+            <table>
+                <thead>
+                    <tr>
+                        <td>使用枚数</td>
+                        <td>普通の神社</td>
+                        <td>賭博の神社</td>
+                        <td>呪いの神社</td>
+                    </tr>
+                </thead>
+                    <tr>
+                        <th>
+                            一枚
+                        </th>
+                        <td>
+                            <ul>
+                                <li>一点獲得<br>(十割)</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>ハズレ(八割)</li>
+                                <li>五点獲得(二割)</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>一点強奪(四割)</li>
+                                <li>二点強奪(二割)</li>
+                                <li>一点減点(二割)</li>
+                                <li>二点減点(二割)</li>
+                            </ul>
+                        </td>
+                    </tr>
+                <tr>
+                    <th>
+                        二枚
+                    </th>
+                    <td>
+                        <ul>
+                            <li>二点獲得<br>(十割)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>ハズレ(七割)</li>
+                            <li>六点獲得(一割)</li>
+                            <li>七点獲得(二割)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>一点強奪(一割)</li>
+                            <li>二点強奪(六割)</li>
+                            <li>二点減点(三割)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        三枚
+                    </th>
+                    <td>
+                        <ul>
+                            <li>三点獲得<br>(十割)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>ハズレ(六割)</li>
+                            <li>七点獲得(二割)</li>
+                            <li>八点獲得(二割)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>二点強奪(七割)</li>
+                            <li>三点強奪(一割)</li>
+                            <li>二点減点(二割)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        四枚
+                    </th>
+                    <td>
+                        <ul>
+                            <li>四点獲得<br>(十割)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>ハズレ(五割)</li>
+                            <li>八点獲得(五割)</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>二点強奪(六割)</li>
+                            <li>三点強奪(三割)</li>
+                            <li>二点減点(一割)</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="balloon" id="curse_balloon">…誰を呪う</div>
+    <div class="balloon" id="gamble_balloon">信じる者は…</div>
+    <script src="./main4.js"></script>
+</body>
+</html>
