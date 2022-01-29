@@ -7,8 +7,14 @@
     <style>
         .container{
             display: flex;
-            justify-content: center;
+            margin: auto 0 auto 0;
             flex-direction: column;
+            width: 700px;
+        }
+        
+        #c1, #c2{
+            display: flex;
+            justify-content: center;
         }
         
         #sample1{
@@ -25,8 +31,8 @@
 </head>
 <body>
     <div class="container">
-        <img src="./48p-sample.png" id="sample1">
-        <img src="./toi-sample.png" id="sample2">
+        <div id="c1"><img src="./48p-sample.png" id="sample1"></div>
+        <div id="c2"><img src="./toi-sample.png" id="sample2"></div>
     </div>
 </body>
 </html>
