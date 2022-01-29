@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ランダムチョイス</title>
+    <style type="text/css">
+        .selector{
+            display: flex;
+            flex-direction: row;
+        }
+        
+        #clear{
+            margin-bottom: 10px;
+        }
+        
+        input[type="text"]{
+            width: 50px;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        #lottery{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        #outputWrapper{
+            display: flex;
+            flex-direction: row;
+            visibility: hidden;
+            font-size: 30px;
+        }
+
+        .timer{
+            display: flex;
+            font-size: 30px;
+            margin-top: 10px;
+            color:yellow;
+            background:black;
+            width: 440px;
+        }
+
+        .checker{
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            width: 120px;
+            justify-content: space-between;
+        }
+
+        #canFind{
+            font-size: 30px;
+            color: red;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        #ex{
+            font-size: 20px;
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="selector">
+        <p>モード: </p>
+        <p class="mode"><input type="radio" name="mode" value="input">手入力</p>
+        <p class="mode"><input type="radio" name="mode" value="random">ランダム</p>
+    </div>
+    <input type="button" id="clear" value="クリア">
+    <div id="inputWrapper">
+        <form name="input">
+            <input type="text" name="i1">
+            <input type="text" name="i2">
+            <input type="text" name="i3">
+            <input type="text" name="i4">
+            <input type="text" name="i5">
+            <input type="text" name="i6">
+            <input type="text" name="i7">
+        </form>
+    </div>
+    <input type="button" id="lottery" value="抽選">
+    <div id="outputWrapper">
+        <div class="output" id="o1"></div>,
+        <div class="output" id="o2"></div>,
+        <div class="output" id="o3"></div>,
+        <div class="output" id="o4"></div>,
+        <div class="output" id="o5"></div>を使って
+        <div class="output" id="o6"></div>を作れ！
+    </div>
+    <div class="timer">あと<div id="timer">60</div>秒</div>
+    <div class="checker">
+        <input type="button" id="seek" value="調査">
+        <input type="button" id="show" value="解答例">
+    </div>
+    <p id="canFind"></p>
+    <p id="ex"></p>
+    <script type="text/javascript">
+        const $output = document.getElementsByClassName("output");
+        const $lot = document.getElementById("lottery");
+        const $clear = document.getElementById("clear");
+        const $oWrap = document.getElementById("outputWrapper");
+        const $timer = document.getElementById("timer");
+        const $selector = document.getElementsByName("mode");
+        const $seek = document.getElementById("seek");
+        const $canFind = document.getElementById("canFind");
+        const $show = document.getElementById("show");
+        const $ex = document.getElementById("ex");
+
+        let timer;
+        let flag = false;
+
+        let exam = "";
+
+        $lot.addEventListener("click", () => {
+            let mode;
+            for(let i=0; i<$selector.length; i++){
+                if($selector[i].checked){
+                    mode = $selector[i].value;
+                }
+            }
+            
+            let checker = true;
+
+            if(mode != "random"){
+                for(let i=0; i<7; i++){
+                    if(document.forms[0].elements[i].value == ""){
+                        checker = false;
+                        break;
+                    }
+                }
+            }
+
+            if(checker){
+                if(flag){
+                    clearInterval(timer);
+                    flag = false;
+                }
+                
+                if(mode === "input"){
+                    let Arr1 = [];
+
+                    while(Arr1.length<7){
+                        let rNum = Math.floor(Math.random()*7);
+                        if(!Arr1.includes(rNum)){
+                            Arr1.push(rNum);
+                        }
+                    }
+
+                    for(let i=0; i<6; i++){
+                        if(i !== 5){
+                            $output[i].textContent = document.forms[0].elements[Arr1[i]].value;
+                        }else{
+                            $output[5].textContent = String(document.forms[0].elements[Arr1[5]].value) + String(document.forms[0].elements[Arr1[6]].value);
+                        }
+                    }
+                }else if(mode === "random"){
+                    let ranArr = [];
+                    for(let i=0; i<7; i++){
+                        let ranNum;
+                        ranNum = Math.floor(Math.random()*6 + 1);
+                        ranArr.push(ranNum);
+                    }
+
+                    for(let i=0; i<6; i++){
+                        if(i !== 5){
+                            $output[i].textContent = ranArr[i];
+                        }else{
+                            $output[5].textContent = String(ranArr[5]) + String(ranArr[6]);
+                        }
+                    }
+                }
+
+                $oWrap.style.visibility = "visible";
+
+                let sec = 60;
+                let dt = new Date();
+                let endDt = new Date(dt.getTime() + sec*1000);
+
+                let count = sec;
+                timer = setInterval(function(){
+                    flag = true;
+                    count--;
+                    $timer.textContent = count;
+                    dt = new Date();
+                    if(dt.getTime() >= endDt.getTime()){
+                        flag = false;
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }else if(mode != "random" && !checker){
+                alert("数字の入力を完了させてください");
+            }
+            
+        });
+
+        $clear.addEventListener("click", () => {
+            for(let i=0; i<7; i++){
+                document.forms[0].elements[i].value = "";
+                if(i !== 6){
+                    $output[i].textContent = "";
+                }
+            }
+
+            $oWrap.style.visibility = "hidden";
+            $canFind.textContent = "";
+            $ex.innerHTML = "";
+            exam = "";
+            clearInterval(timer);
+            flag = false;
+            $timer.textContent = 60;
+        });
+
+        $seek.addEventListener("click", () => {
+            let canFind;
+            let sArr = [];
+            let target;
+
+            exam = "";
+
+            for(let i=0; i<6; i++){
+                if(i == 5){
+                    target = Number($output[i].textContent);
+                }else{
+                    sArr.push(Number($output[i].textContent));
+                }
+            }
+
+            canFind = jamaica(sArr, target);
+
+            if(canFind){
+                $canFind.textContent = "作成可能";
+            }else{
+                $canFind.textContent = "解なし"
+            }
+
+        });
+
+        $show.addEventListener("click", () => {
+            $ex.innerHTML = exam;
+        });
+
+        function jamaica(sais, target) {
+	        let res = [];
+            let canFind = false;
+            let count = 1;
+
+            let pat = [
+                [0, 1],
+                [0, 2],
+                [0, 3],
+                [0, 4],
+                [1, 2],
+                [1, 3],
+                [1, 4],
+                [2, 3],
+                [2, 4],
+                [3, 4]
+            ];
+            let pat1 = [
+                [0, 1],
+                [0, 2],
+                [0, 3],
+                [1, 2],
+                [1, 3],
+                [2, 3]
+            ];
+            let pat2 = [
+                [0, 1],
+                [0, 2],
+                [1, 2]
+            ];
+
+	        let balls = [];
+
+            for(let i = 0; i < 5; i++) {
+                balls.push([
+                    [sais[i], sais[i].toString(10)]
+                ]);
+            }
+
+	        let res_last = [];
+
+            for(let i = 0; i < 10; i++) {
+                res = get_new_balls(balls[pat[i][0]], balls[pat[i][1]]);
+                let balls1 = [];
+                balls1.push(res);
+                for(let j = 0; j < balls.length; j++) {
+                    if(j != pat[i][0] && j != pat[i][1]) {
+                        balls1.push(balls[j]);
+                    }
+                }
+                //4個から2個
+                for(let j = 0; j < 6; j++) {
+                    res = get_new_balls(balls1[pat1[j][0]], balls1[pat1[j][1]]);
+                    let balls2 = [];
+                    balls2.push(res);
+                    for(let k = 0; k < balls1.length; k++) {
+                        if(k != pat1[j][0] && k != pat1[j][1]) {
+                            balls2.push(balls1[k]);
+                        }
+                    }
+                    //3個から2個
+                    for(let k = 1; k < 3; k++) {
+                        res = get_new_balls(balls2[pat2[k][0]], balls2[pat2[k][1]]);
+                        let balls3 = [];
+                        balls3.push(res);
+                        balls3.push(balls2[2 - k]);
+                        //2個から2個
+                        res_last = res_last.concat(get_new_balls(balls3[0], balls3[1]));
+                    }
+                }
+            }
+
+            for(let i = 0; i < res_last.length; i++) {
+                if(res_last[i][0] == target) {
+                    canFind = true;
+                    exam += "解答例" + count + "  " + res_last[i][1].replace(/^\((.*)\)$/, "$1") + "<br>";
+                    count += 1
+                    if(count == 6){
+                        break;
+                    }
+                }
+            }
+            return canFind;
+        }
+
+        function get_new_balls(arr0, arr1) {
+            let balls = [];
+            
+            for(let i = 0; i < arr0.length; i++) {
+                for(let j = 0; j < arr1.length; j++) {
+                    balls = balls.concat(keisan(arr0[i], arr1[j]));
+                }
+            }
+            balls = unique_left(balls);
+
+            return balls;
+        }
+
+        function keisan(a, b) {
+            let res = [];
+            res.push([a[0] + b[0], "(" + a[1] + "+" + b[1] + ")"]);
+            res.push([a[0] * b[0], "(" + a[1] + "×" + b[1] + ")"]);
+            res.push([a[0] - b[0], "(" + a[1] + "-" + b[1] + ")"]);
+            res.push([b[0] - a[0], "(" + b[1] + "-" + a[1] + ")"]);
+            if(a[0] != 0) {
+                res.push([b[0] / a[0], "(" + b[1] + "÷" + a[1] + ")"]);
+            }
+            if(b[0] != 0) {
+                res.push([a[0] / b[0], "(" + a[1] + "÷" + b[1] + ")"]);
+            }
+            return res;
+        }
+
+        function unique_left(array) {
+            //2次元の配列を渡すと最初の要素で比較してユニークな配列を返す。
+            let unique_array = [];
+            let check = [];
+            for(let i = 0; i < array.length; i++) {
+                if(!check[array[i][0]]) {
+                    check[array[i][0]] = true;
+                    unique_array.push(array[i]);
+                }
+            }
+            return unique_array;
+        }
+
+    </script>
+</body>
+</html>
