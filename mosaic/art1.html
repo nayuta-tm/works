@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./static/image/favicon.ico">
+    <title>モザイククイズ</title>
+    <style type="text/css">
+        body{
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .container{
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+        }
+        
+        h1,h2{
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        h1{
+            background-image: url("./static/image/banar.png");
+            font-size: 50px;
+            margin-right: 30px;
+            writing-mode: vertical-lr;
+        }
+
+        h2{
+            font-weight: 600;
+            font-size: 40px;
+            width: 781px;
+        }
+
+        .frame{
+            background-image: url("./static/image/gaku.png");
+            width: 781px;
+            height:  656px;
+            background-size: contain;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+        #canvas{
+            background-color: #fafad2;
+            position: absolute;
+            margin-bottom: 0px;
+            margin-left: 68px;
+            margin-top: 83px;
+        }
+
+        #size{
+            font-size: 40px;
+            color: blue;
+        }
+
+        #score{
+            font-size: 60px;
+            color: red;
+            margin: 0;
+        }
+        
+        .score{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .selectorWrapper{
+            display: flex;
+        }
+
+        .selector{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>今日の脳トレ</h1>
+        <div style="display: flex; flex-direction: row;">
+            <div class="frameWrapper">
+                <h2>これは何という絵画でしょう?</h2>
+                <div class="frame">
+                    <div id="canvas" style="width: 640px; height: 480px;">
+                        <a href="./">
+                            <div id="canvas2" style="position: absolute;">
+                                <div id="dummyCanvas" style="position: absolute; background-color: transparent; text-align: center; line-height: 50vh; font-size: 50px;"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 50px; margin-top: 100px; height: 620px; display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <div style="display:flex; flex-direction: column; height: 540px; justify-content: flex-end;">
+                    <div class="score">
+                        <p style="font-size: 30px; margin-bottom: 10px; margin-top: 5px; width: 100px; text-align: center;">SCORE</p>
+                        <div style="display: flex; flex-direction: row; align-items: flex-end;">
+                            <p id="score">30</p>
+                            <p style="font-size: 20px; margin-bottom: 0;">pts</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 30px; margin-top: 100px; height: 600px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <div style="width: 200px;">
+                        <div class="selectorWrapper">
+                            <div class="selector">
+                                <p>出題モード: </p>
+                                <p style="margin-bottom: 8px; margin-top: 0px;"><input type="radio" name="mode" value="dots">ドット</p>
+                                <p style="margin-bottom: 8px; margin-top: 0px;"><input type="radio" name="mode" value="blocks">ブロック</p>
+                                <p style="margin-bottom: 8px; margin-top: 0px;"><input type="radio" name="mode" value="gogh">ゴッホ</p>
+                                <p style="margin-bottom: 8px; margin-top: 0px;"><input type="radio" name="mode" value="slice">スライス</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btnwrapper" style="display: flex; flex-direction: row; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="display: flex; flex-direction: column;">
+                            <div style="display: flex; flex-direction: column; width: 100px; height: 65px; justify-content: space-between;">
+                                <input type="button" id="start" value="開始" onclick="start()">
+                                <input type="button" id="pause" value="停止" onclick="pause()">
+                            </div>
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <span style="display: none;">現在の粗さ: </span>
+                                <div>
+                                    <span id="size" style="display: none;">50</span><span style="display: none;">px</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; height: 65px; justify-content: space-between; width: 100px;">
+                    <input type="button" id="show" value="答えを見る" style="height: 26px;">
+                    <input type="button" id="reset" value="リセット" style="height: 26px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./static/js/art1.js"></script>
+</body>
+</html>
