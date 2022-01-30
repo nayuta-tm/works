@@ -49,7 +49,7 @@ let slicedImage = [];
 let idArr = [];
 let candidate = [];
 
-const music = new Audio('/static/music/guess.mp3');
+const music = new Audio('./static/music/guess.mp3');
 music.volume = 0.6;
 
 music.addEventListener("ended", function(){
