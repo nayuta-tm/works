@@ -1,7 +1,7 @@
-let path = "/static/image/" + document.getElementById("path").textContent;
-let WIDTH = Number(document.getElementById("width").textContent);
-let HEIGHT = Number(document.getElementById("height").textContent);
-let answer = document.getElementById("answer").textContent;
+let path = "./static/image/BB.jpg";
+let WIDTH = 360;
+let HEIGHT = 480;
+let answer = "ビッグベン";
 
 let sX = (640 - WIDTH) / 2;
 let sY = 480 < HEIGHT ? 0 : (480 - HEIGHT) / 2;
