@@ -10,7 +10,12 @@
             display: flex;
             flex-direction: row;
             height: 450px;
-            margin: 0 auto 0 auto;
+            margin: auto;
+        }
+        
+        .wrapper{
+            display: flex;
+            flex-direction: column;
         }
 
         .viewer{
@@ -23,12 +28,19 @@
     </style>
 </head>
 <body>
+    <a href="./"><span>戻る</span></a>
     <div class="container">
-        <div class="viewer">
-            <img src="./sn-moai.png" width="420px" height="390px;">
+        <div class="wrapper">
+            <p>変換前</p>
+            <div class="viewer">
+                <img src="moai.jpg" width="420px" height="280px;">
+            </div>
         </div>
-        <div class="viewer">
-            <img src="moai.jpg" width="420px" height="280px;">
+        <div class="wrapper">
+            <p>変換後</p>
+            <div class="viewer">
+                <img src="./sn-moai.png" width="420px" height="390px;">
+            </div>
         </div>
     </div>
 </body>
