@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang = "ja">
+    <head>
+        <meta charset="UTF-8">
+        <title> 参加者抽選</title>
+        <style>
+        body{
+            color: #004c8c;
+            font-family: arial, sans-serif;
+        }
+
+        .wrapper{
+            margin: 0 auto;
+        }
+
+        .control{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .control span{
+            font-size: 22px;
+        }
+
+        .control button{
+            width: 35px;
+            height: 25px;
+            font-size: 16px;
+            text-align: center;
+            padding: 0;
+            margin: 0 2px;
+        }
+
+        #counter{
+            margin-right: 8px;
+        }
+
+        #update{
+            margin: 0 20px;
+            color: #ff0;
+            background-color: #000;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .result{
+            align-items: center;
+            border: solid 1px #004c8c;
+            display: flex;
+            font-size: 130px;
+            font-weight: bold;
+            justify-content: center;
+            height: 200px;
+            margin: 0 auto 10px;
+            text-align: center;
+            width: 250px;
+        }
+
+        .number{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin: 0 auto;
+            list-style: none;
+            padding: 0;
+            width: 750px;
+        }
+
+        @media (max-width: 767px){
+            .number{
+                width: 100%;
+            }
+        }
+
+        .number li{
+            align-items: center;
+            border: solid 1px #004c8c;
+            display : flex;
+            justify-content: center;
+            height: 40px;
+            margin: 4px;
+            width: 40px;
+        }
+
+        .number li.hit{
+            background: #004c8c;
+            color: #fff;
+        }
+
+        .sub-wrapper{
+            padding: 10px 0 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper-button{
+            padding: 20px 0 50px;
+            text-align: center;
+        }
+
+        .start{
+            background: #004c8c;
+            border: dashed 1px #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px #004c8c;
+            color: #fff;
+            display: inline-block;
+            font-size: 20px;
+            text-decoration: none;
+            height: 100px;
+            line-height: 100px;
+            overflow: hidden;
+            text-align: center;
+            transition: .4s;
+            vertical-align: middle;
+            width: 100px;
+            position: relative;
+            right: 100px;
+        }
+
+        .reset{
+            background: #8c0080;
+            border: dashed 1px #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 0 5px #8c0080;
+            color: #fff;
+            display: inline-block;
+            font-size: 20px;
+            text-decoration: none;
+            height: 100px;
+            line-height: 100px;
+            overflow: hidden;
+            text-align: center;
+            transition: .4s;
+            vertical-align: middle;
+            width: 100px;
+            position: relative;
+            left: 100px;
+        }
+
+        .button:hover{
+            background:  #668ad8;
+            box-shadow: 0 0 0 5px #668ad8;
+            cursor: pointer;
+        }
+
+        footer{
+            text-align: center;
+        }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="sub-wrapper">
+                <div class="control">
+                    <span>申込者数:</span>
+                    <span id="counter">64</span>
+                    <button id="ten-up">+10</button>
+                    <button id="ten-down">-10</button>
+                    <button id="one-up">+1</button>
+                    <button id="one-down">-1</button>
+                </div>
+                <button id="update">更新</button>
+            </div>
+            <div class="control">
+                <span>当選者数:</span>
+                <span id="indicator">0</span>
+            </div>
+            <ul id="number" class="number"></ul>
+            <div class="wrapper-button">
+                <button id="start" class="start">START</button>
+                <button id="reset" class="reset">RESET</button>
+            </div>
+        </div>
+        <script>
+            $(function(){
+                "use strict";
+
+                let candidate = 64;
+                let passed = 0;
+                let bingo = [];
+                let status = true;
+                let reset = false;
+                let roulette;
+                let random;
+                let number;
+                let result;
+                let $number = $("#number");
+                
+                for(let i =1; i <= candidate; i++){
+                    bingo.push(i);
+                    $number.append($("<li>").text(("00" + i).slice(-3)));
+                }
+
+                $("#update").on("click", function(){
+                    bingo = [];
+                    $number.children().remove();
+                    passed = 0;
+                    $("#indicator").text(0);
+                    for(let i =1; i <= candidate; i++){
+                    bingo.push(i);
+                    $number.append($("<li>").text(("00" + i).slice(-3)));
+                }
+                });
+
+                $("#start").on("click", function(){
+                    if(status){
+                        status = false;
+                        $(this).text("STOP");
+
+                        roulette = setInterval(function(){
+                            shuffle(bingo);
+
+                            $number.find("li").removeClass("hit");
+                            for(let i=0; i<64; i++){
+                                $number.find("li").eq(parseInt(bingo[i], 10) - 1). addClass("hit");
+                            }
+                        }, 10);
+                    }else{
+                        status = true;
+                        $(this).text("START");
+
+                        clearInterval(roulette);
+
+                        passed = 64;
+                        $("#indicator").text(passed);
+                    }
+                    reset = true;
+                });
+
+                $("#reset").on("click", function(){
+                    if(reset){
+                        $number.empty();
+                        bingo=[];
+                        passed = 0;
+                        $("#indicator").text(0);
+                        for(let i =1; i <= candidate; i++){
+                            bingo.push(i);
+                            $number.append($("<li>").text(("00" + i).slice(-3)));
+                        }
+                    }
+                });
+
+                $("#ten-up").on("click", function(){
+                    candidate += 10;
+                    $("#counter").text(candidate);
+                });
+
+                $("#ten-down").on("click", function(){
+                    if(candidate >=11){
+                        candidate -= 10;
+                        $("#counter").text(candidate);
+                    }
+                });
+
+                $("#one-up").on("click", function(){
+                    candidate += 1;
+                    $("#counter").text(candidate);
+                });
+
+                $("#one-down").on("click", function(){
+                    if(candidate >=2){
+                        candidate -= 1;
+                        $("#counter").text(candidate);
+                    }
+                });
+
+                const shuffle = array => {
+                    for (let i = array.length - 1; i >= 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    const temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                    }
+                    return array;
+                }
+            });
+        </script>
+    </body>
+</html>
